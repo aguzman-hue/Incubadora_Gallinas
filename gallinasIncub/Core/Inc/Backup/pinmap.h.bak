@@ -1,0 +1,50 @@
+/*
+ * pinmap.h
+ *
+ *  Created on: Oct 27, 2025
+ *      Author: PC
+ */
+
+#ifndef PINMAP_H
+#define PINMAP_H
+
+// LCD 16x2 (modo 4 bits)
+#define LCD_RS_PORT GPIOA
+#define LCD_RS_PIN  GPIO_PIN_4
+#define LCD_E_PORT  GPIOA
+#define LCD_E_PIN   GPIO_PIN_5
+#define LCD_D4_PORT GPIOA
+#define LCD_D4_PIN  GPIO_PIN_6
+#define LCD_D5_PORT GPIOA
+#define LCD_D5_PIN  GPIO_PIN_7
+#define LCD_D6_PORT GPIOB
+#define LCD_D6_PIN  GPIO_PIN_6
+#define LCD_D7_PORT GPIOB
+#define LCD_D7_PIN  GPIO_PIN_10
+
+// Buzzer
+#define BUZZER_PORT GPIOA
+#define BUZZER_PIN  GPIO_PIN_9
+
+// Servo
+#define SERVO_TIM   htim1
+#define SERVO_CH    TIM_CHANNEL_1
+
+// Display 7 segmentos (ejemplo para segmentos A–G)
+#define SEG_A_PIN   GPIO_PIN_0
+#define SEG_B_PIN   GPIO_PIN_1
+#define SEG_C_PIN   GPIO_PIN_2
+#define SEG_D_PIN   GPIO_PIN_3
+#define SEG_E_PIN   GPIO_PIN_4
+#define SEG_F_PIN   GPIO_PIN_5
+#define SEG_G_PIN   GPIO_PIN_6
+#define SEG_PORT    GPIOB
+
+// Dígitos del display (D1–D4)
+#define DIGIT1_PIN  GPIO_PIN_0
+#define DIGIT2_PIN  GPIO_PIN_1
+#define DIGIT3_PIN  GPIO_PIN_2
+#define DIGIT4_PIN  GPIO_PIN_3
+#define DIGIT_PORT  GPIOA
+
+#endif

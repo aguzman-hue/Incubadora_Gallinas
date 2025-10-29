@@ -1,0 +1,16 @@
+/*
+ * display7seg.h
+ *
+ *  Created on: Oct 27, 2025
+ *      Author: PC
+ */
+
+#ifndef DISPLAY7SEG_H
+#define DISPLAY7SEG_H
+
+#include <stdint.h>
+
+void display7seg_init(void);
+void displayDigit(uint8_t digit);
+
+#endif

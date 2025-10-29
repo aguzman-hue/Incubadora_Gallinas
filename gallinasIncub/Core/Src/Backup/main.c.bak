@@ -1,0 +1,123 @@
+#include "main.h"
+#include "lcd.h"
+#include "keypad.h"
+#include "servo.h"
+#include "adc.h"
+#include "display7seg.h"
+#include "buzzer.h"
+#include "stm32f3xx_hal.h"
+
+TIM_HandleTypeDef htim1;  // PWM para servo
+
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+void MX_ADC1_Init(void);
+void MX_TIM1_Init(void);
+void Error_Handler(void);
+
+int main(void) {
+  HAL_Init();
+  SystemClock_Config();
+  MX_GPIO_Init();
+  MX_ADC1_Init();
+  MX_TIM1_Init();
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1); // Activar PWM del servo
+
+  // Inicialización de módulos
+  lcd_init();           // LCD 16x2
+  lcd_setCursor(0, 0);
+  lcd_print("LCD TEST");
+  HAL_Delay(2000);
+  lcd_clear();
+
+  keypad_init();        // Keypad 4x4
+  display7seg_init();   // Display 7 segmentos
+  buzzer_init();        // Buzzer PA9
+
+  // Estado: INICIO
+  lcd_print("Incubadora lista");
+  HAL_Delay(1500);
+  lcd_clear();
+
+  while (1) {
+    // Estado: INCUBANDO
+    uint16_t temp = read_temperature(); // Lectura desde ADC canal 14 (PB11)
+
+    lcd_setCursor(0, 0);
+    lcd_print("Temp: ");
+    lcd_print_int(temp); // Puedes convertir a °C si lo deseas
+
+    displayDigit(temp % 10); // Mostrar último dígito en display 7 segmentos
+
+    // Estado: CALENTANDO / ALARMA / VELEANDO
+    if (temp > 3800) { // Umbral alto (ajusta según sensor)
+      lcd_setCursor(1, 0);
+      lcd_print("Alarma: Alta Temp");
+      buzzer_on();
+      move_servo(90); // Volteando
+    } else if (temp < 3000) { // Umbral bajo
+      lcd_setCursor(1, 0);
+      lcd_print("Alarma: Baja Temp");
+      buzzer_on();
+      move_servo(0); // Cerrar tapa
+    } else {
+      lcd_setCursor(1, 0);
+      lcd_print("Temp OK - Veleando");
+      buzzer_off();
+      move_servo(45); // Posición intermedia
+    }
+
+    HAL_Delay(500); // Espera para estabilidad
+  }
+}
+
+void Error_Handler(void) {
+  while (1) {
+    // Puedes poner un mensaje en el LCD o encender el buzzer si quieres
+  }
+}
+
+void SystemClock_Config(void) {
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
+  RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV1;
+  HAL_RCC_OscConfig(&RCC_OscInitStruct);
+
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
+                              | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+  HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2);
+}
+
+void MX_TIM1_Init(void) {
+  TIM_OC_InitTypeDef sConfigOC = {0};
+
+  htim1.Instance = TIM1;
+  htim1.Init.Prescaler = 72 - 1;
+  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim1.Init.Period = 20000 - 1;
+  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim1.Init.RepetitionCounter = 0;
+  htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  HAL_TIM_PWM_Init(&htim1);
+
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 1500;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
+  sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
+  HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_1);
+}
+
+

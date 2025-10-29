@@ -1,0 +1,2 @@
+../Core/Src/keypad.c:25:6:keypad_init	1
+../Core/Src/keypad.c:29:9:keypad_read	4
