@@ -30,55 +30,9 @@ extern "C" {
 #include "stm32f3xx_hal.h"
 
 /* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Private defines */
-// LCD Pins
-#define RS_Pin GPIO_PIN_4
-#define RS_GPIO_Port GPIOA
-#define E_Pin  GPIO_PIN_5
-#define E_GPIO_Port GPIOA
-#define D4_Pin GPIO_PIN_6
-#define D4_GPIO_Port GPIOA
-#define D5_Pin GPIO_PIN_7
-#define D5_GPIO_Port GPIOA
-#define D6_Pin GPIO_PIN_7  // Corregido
-#define D6_GPIO_Port GPIOB
-#define D7_Pin GPIO_PIN_10
-#define D7_GPIO_Port GPIOB
+/* USER CODE BEGIN Includes */
 
-// Buzzer
-#define Buzzer_Pin GPIO_PIN_9
-#define Buzzer_GPIO_Port GPIOA
-
-// Servo
-#define Servo_Pin GPIO_PIN_8
-#define Servo_GPIO_Port GPIOA
-
-// Sensor de temperatura
-#define TempSensor_Pin GPIO_PIN_11
-#define TempSensor_GPIO_Port GPIOB
-
-// Display 7 segmentos
-#define SEG_A_Pin GPIO_PIN_0
-#define SEG_B_Pin GPIO_PIN_1
-#define SEG_C_Pin GPIO_PIN_2
-#define SEG_D_Pin GPIO_PIN_3
-#define SEG_E_Pin GPIO_PIN_4
-#define SEG_F_Pin GPIO_PIN_5
-#define SEG_G_Pin GPIO_PIN_6
-#define SEG_DP_Pin GPIO_PIN_0  // PA0
-
-#define DIG1_Pin GPIO_PIN_1  // PA1
-#define DIG2_Pin GPIO_PIN_2  // PA2
-#define DIG3_Pin GPIO_PIN_3  // PA3
-#define DIG4_Pin GPIO_PIN_8  // PB8
-
-// Keypad
-#define ROW_PORT GPIOC
-#define COL_PORT GPIOB
-#define ROW_PINS {GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_2, GPIO_PIN_3}
-#define COL_PINS {GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_2, GPIO_PIN_3}
-/* USER CODE END Private defines */
-
+/* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
@@ -120,25 +74,43 @@ void Error_Handler(void);
 #define D4_GPIO_Port GPIOA
 #define D5_Pin GPIO_PIN_7
 #define D5_GPIO_Port GPIOA
-#define D6_Pin GPIO_PIN_7
+#define D6_Pin GPIO_PIN_7  // Corregido
 #define D6_GPIO_Port GPIOB
 #define D7_Pin GPIO_PIN_10
 #define D7_GPIO_Port GPIOB
 
 // Buzzer
-#define Buzzer_Pin GPIO_PIN_9
+#define Buzzer_Pin GPIO_PIN_8
 #define Buzzer_GPIO_Port GPIOA
 
-// Servo (TIM1_CH1 → PA8, si lo usás así)
-#define Servo_Pin GPIO_PIN_8
+// Servo
+#define Servo_Pin GPIO_PIN_9
 #define Servo_GPIO_Port GPIOA
 
-// Sensor de temperatura (ADC1_IN14 → PB11)
+// Sensor de temperatura
 #define TempSensor_Pin GPIO_PIN_11
 #define TempSensor_GPIO_Port GPIOB
 
-// Display 7 segmentos (si usás pines específicos, podés agregarlos aquí también)
+/*// Display 7 segmentos
+#define SEG_A_Pin GPIO_PIN_0
+#define SEG_B_Pin GPIO_PIN_1
+#define SEG_C_Pin GPIO_PIN_2
+#define SEG_D_Pin GPIO_PIN_3
+#define SEG_E_Pin GPIO_PIN_4
+#define SEG_F_Pin GPIO_PIN_5
+#define SEG_G_Pin GPIO_PIN_6
+#define SEG_DP_Pin GPIO_PIN_0  // PA0
 
+#define DIG1_Pin GPIO_PIN_1  // PA1
+#define DIG2_Pin GPIO_PIN_2  // PA2
+#define DIG3_Pin GPIO_PIN_3  // PA3
+#define DIG4_Pin GPIO_PIN_8  // PB8*/
+
+// Keypad
+#define ROW_PORT GPIOC
+#define COL_PORT GPIOB
+#define ROW_PINS {GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_2, GPIO_PIN_3}
+#define COL_PINS {GPIO_PIN_0, GPIO_PIN_1, GPIO_PIN_2, GPIO_PIN_3}
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

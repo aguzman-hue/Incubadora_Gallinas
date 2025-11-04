@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 void servo_init(void);
-void servo_set_angle(uint8_t angle); // ángulo entre 0 y 180
+//void servo_set_angle(uint8_t angle); // ángulo entre 0 y 180
+void servo_set_speed(int8_t speed);
 
 #endif

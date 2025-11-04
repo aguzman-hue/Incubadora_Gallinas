@@ -1,3 +1,0 @@
-../Core/Src/display7seg.c:4:6:display7seg_init	0	static
-../Core/Src/display7seg.c:8:6:displayDigit	32	static
-../Core/Src/display7seg.c:32:6:displayNumber	72	static

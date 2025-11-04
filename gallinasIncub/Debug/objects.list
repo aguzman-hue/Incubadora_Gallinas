@@ -1,6 +1,5 @@
 "./Core/Src/adc.o"
 "./Core/Src/buzzer.o"
-"./Core/Src/display7seg.o"
 "./Core/Src/gpio.o"
 "./Core/Src/keypad.o"
 "./Core/Src/keypad_logic.o"

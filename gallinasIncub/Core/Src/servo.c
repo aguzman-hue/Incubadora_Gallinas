@@ -7,22 +7,22 @@
 
 #include "servo.h"
 #include "stm32f3xx_hal.h"
-#include "tim.h" // Para acceder a htim4
+#include "tim.h"
+#include <stdint.h>
 
 #define SERVO_MIN_PULSE 500   // 0° → 0.5 ms
 #define SERVO_MAX_PULSE 2500  // 180° → 2.5 ms
 #define SERVO_PERIOD     20000 // 20 ms (50 Hz)
 
 void servo_init(void) {
-  // Ya configurado en CubeMX como PWM en TIM4_CH1
-  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
-  servo_set_angle(0); // Posición inicial
+
+  HAL_TIM_PWM_Start(&htim1_sm, TIM_CHANNEL_3);
+ // servo_set_angle(0); // Posición inicial
 }
 
-void servo_set_angle(uint8_t angle) {
-  if (angle > 180) angle = 180;
-
-  uint32_t pulse = SERVO_MIN_PULSE + ((SERVO_MAX_PULSE - SERVO_MIN_PULSE) * angle) / 180;
-
-  __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, pulse);
+void servo_set_speed(int8_t speed) {
+  // speed: -100 (giro máximo izquierda) a +100 (giro máximo derecha)
+  // 0 = detenido
+  uint32_t pulse = 1500 + (speed * 9); // escala lineal
+  __HAL_TIM_SET_COMPARE(&htim1_sm, TIM_CHANNEL_3, pulse);
 }

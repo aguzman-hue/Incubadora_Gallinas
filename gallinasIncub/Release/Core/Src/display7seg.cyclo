@@ -1,3 +1,0 @@
-../Core/Src/display7seg.c:4:6:display7seg_init	1
-../Core/Src/display7seg.c:8:6:displayDigit	1
-../Core/Src/display7seg.c:32:6:displayNumber	3

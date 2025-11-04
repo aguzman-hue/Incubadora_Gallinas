@@ -1,5 +1,5 @@
 ../Core/Src/keypad_logic.c:8:6:keypad_logic_init	1
-../Core/Src/keypad_logic.c:14:6:keypad_logic_update	12
-../Core/Src/keypad_logic.c:42:6:entrada_finalizada	1
-../Core/Src/keypad_logic.c:46:10:get_tiempo_confirmado	1
-../Core/Src/keypad_logic.c:50:6:reset_entrada	1
+../Core/Src/keypad_logic.c:14:13:keypad_logic_update	12
+../Core/Src/keypad_logic.c:51:6:entrada_finalizada	1
+../Core/Src/keypad_logic.c:55:10:get_tiempo_confirmado	1
+../Core/Src/keypad_logic.c:59:6:reset_entrada	1

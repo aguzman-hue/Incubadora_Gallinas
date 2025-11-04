@@ -27,6 +27,11 @@ static void lcd_send_nibble(uint8_t nibble);
 static void lcd_send_cmd(uint8_t cmd);
 static void lcd_send_data(uint8_t data);
 
+void lcd_print_number(uint8_t row, uint16_t number) {
+  char buffer[6]; // suficiente para "65535\0"
+  sprintf(buffer, "%u", number);
+  lcd_print_line(row, buffer);
+}
 void lcd_init(void) {
   HAL_Delay(50);
   lcd_send_cmd(0x33);

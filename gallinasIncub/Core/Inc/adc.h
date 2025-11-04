@@ -27,18 +27,18 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include <stdint.h>  // USER CODE BEGIN Includes
+
+/* USER CODE BEGIN Includes */
+
+/* USER CODE END Includes */
+
+extern ADC_HandleTypeDef hadc1;
 
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
 
-// Prototipos
-void adc_init(void);
 void MX_ADC1_Init(void);
-uint16_t read_temperature(void);
-
-extern ADC_HandleTypeDef hadc1;
 
 /* USER CODE BEGIN Prototypes */
 
@@ -47,4 +47,6 @@ extern ADC_HandleTypeDef hadc1;
 #ifdef __cplusplus
 }
 #endif
+
 #endif /* __ADC_H__ */
+

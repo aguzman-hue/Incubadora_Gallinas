@@ -20,8 +20,8 @@
 #define BUZZER_PIN  GPIO_PIN_8  // PA8 según tu mapeo
 
 // Servo
-#define SERVO_TIM   htim1
-#define SERVO_CH    TIM_CHANNEL_1
+#define SERVO_TIM   htim1_sm
+#define SERVO_CH    TIM_CHANNEL_3
 
 // Display 7 segmentos (segmentos A–G)
 #define SEG_PORT    GPIOB
